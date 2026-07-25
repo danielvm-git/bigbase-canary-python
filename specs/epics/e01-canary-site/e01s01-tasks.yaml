@@ -1,0 +1,21 @@
+story: e01s01
+bcps: 3
+tasks:
+  - id: t1
+    title: Write failing test for GET / footer content
+    verify: "uv run pytest -q tests/test_smoke.py 2>&1 | grep -i fail"
+  - id: t2
+    title: Implement Flask app under src/ to pass the test
+    verify: "uv run pytest -q"
+  - id: t3
+    title: Add .big-release.yml
+    verify: "test -f .big-release.yml && grep -q tagFormat .big-release.yml"
+  - id: t4
+    title: Copy + patch CI templates (test-build-release.yml, deploy.yml)
+    verify: "test -f .github/workflows/deploy.yml && grep -q big-release .github/workflows/test-build-release.yml"
+  - id: t5
+    title: Provision bigbase site + GitHub secrets
+    verify: "gh secret list -R danielvm-git/bigbase-canary-python | grep -q BIGBASE_SITE_ID"
+  - id: t6
+    title: Land on main, confirm green CI + live deploy
+    verify: "gh run list -R danielvm-git/bigbase-canary-python --limit 2 --json conclusion -q '.[].conclusion' | grep -q success"
