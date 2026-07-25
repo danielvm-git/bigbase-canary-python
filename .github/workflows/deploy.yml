@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  SITE_URL: "https://CHANGE-ME.bigbase.click"
+  SITE_URL: "https://python.bigbase.click"
 
 jobs:
   deploy:
