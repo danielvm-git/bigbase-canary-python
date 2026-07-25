@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# hook-commits (bigpowers), adapted for a non-Node stack: run Preflight before every commit.
+set -euo pipefail
+if [ -f scripts/preflight.sh ]; then
+  bash scripts/preflight.sh
+else
+  echo "WARN: no scripts/preflight.sh — skipping pre-commit checks"
+fi
