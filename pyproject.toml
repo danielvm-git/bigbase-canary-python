@@ -1,6 +1,6 @@
 [project]
 name = "bigbase-canary-python"
-version = "0.1.1"
+version = "0.1.2"
 description = "Minimal Python canary proving big-release + bigbase-deploy interop"
 requires-python = ">=3.12"
 dependencies = [
