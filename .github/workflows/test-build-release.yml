@@ -139,10 +139,11 @@ jobs:
           TAG=$(git describe --tags --abbrev=0)
           VER=${TAG#v}
           echo "$VER" > VERSION
-          if ! git diff --quiet VERSION; then
+          sed -i "s/^version = \".*\"/version = \"$VER\"/" pyproject.toml
+          if ! git diff --quiet VERSION pyproject.toml; then
             git config user.name "big-release-bot"
             git config user.email "big-release-bot@danielvm-git.github.io"
-            git add VERSION
+            git add VERSION pyproject.toml
             git commit -m "chore(release): update VERSION file to $VER [skip ci]"
             git push origin main
           fi

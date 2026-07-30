@@ -4,5 +4,37 @@ bugs:
     severity: high
     priority: P1
     scope: ci
+    status: closed
     summary: "VERSION file goes stale on releases and tests hardcode static version string"
     file: "specs/bugs/BUG-2026-07-30T090000-stale-version-file.md"
+    issue: 1
+
+  - bug_id: BUG-2026-07-30T120000
+    date: "2026-07-30T12:00:00Z"
+    severity: medium
+    priority: P2
+    scope: build
+    status: fixed
+    summary: "pyproject.toml version hardcoded at 0.1.0; uv build produces wrong wheel version"
+    file: "specs/QA_REPORT_LATEST.md#f-001"
+    fix: "Updated pyproject.toml to 0.1.1; added sed sync to CI workflow"
+
+  - bug_id: BUG-2026-07-30T120001
+    date: "2026-07-30T12:00:00Z"
+    severity: low
+    priority: P3
+    scope: docs
+    status: fixed
+    summary: "CHANGELOG.md has duplicate [0.1.0] sections"
+    file: "specs/QA_REPORT_LATEST.md#f-002"
+    fix: "Removed duplicate section"
+
+  - bug_id: BUG-2026-07-30T120002
+    date: "2026-07-30T12:00:00Z"
+    severity: low
+    priority: P3
+    scope: docs
+    status: fixed
+    summary: "CHANGELOG.md missing [0.1.1] release entry"
+    file: "specs/QA_REPORT_LATEST.md#f-003"
+    fix: "Added [0.1.1] section with CI fix commits"
