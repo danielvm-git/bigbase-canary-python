@@ -1,0 +1,8 @@
+bugs:
+  - bug_id: BUG-2026-07-30T090000
+    date: "2026-07-30T09:00:00-03:00"
+    severity: high
+    priority: P1
+    scope: ci
+    summary: "VERSION file goes stale on releases and tests hardcode static version string"
+    file: "specs/bugs/BUG-2026-07-30T090000-stale-version-file.md"

@@ -8,3 +8,15 @@ handoff:
   next_skill: kickoff-branch
 metrics:
   story_start: null
+release:
+  version: "0.1.0"
+  bump_hint: fix
+  codename: canary-genesis
+
+epics:
+  - id: e01
+    title: Canary site scaffold
+    wsjf: 1
+    bcps_total: 4
+    stories:
+      - e01s01
