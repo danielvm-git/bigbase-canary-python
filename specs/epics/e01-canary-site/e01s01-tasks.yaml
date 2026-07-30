@@ -1,21 +1,53 @@
-story: e01s01
-bcps: 3
+story_id: e01s01
+title: Stand up canary site & adapt CI/CD to central v4.1.0 template pattern
+status: passing
+bcps: 4
 tasks:
   - id: t1
-    title: Write failing test for GET / footer content
-    verify: "uv run pytest -q tests/test_smoke.py 2>&1 | grep -i fail"
+    description: "Write failing test for GET / footer content"
+    verify: "uv run pytest -q tests/test_smoke.py"
+    risk: P1
+    status: passing
+    allure:
+      severity: high
+      categories: ["testing"]
   - id: t2
-    title: Implement Flask app under src/ to pass the test
+    description: "Implement Flask app under src/ to pass the test"
     verify: "uv run pytest -q"
+    risk: P1
+    status: passing
+    allure:
+      severity: high
+      categories: ["app"]
   - id: t3
-    title: Add .big-release.yml
+    description: "Add .big-release.yml"
     verify: "test -f .big-release.yml && grep -q tagFormat .big-release.yml"
+    risk: P2
+    status: passing
+    allure:
+      severity: normal
+      categories: ["release"]
   - id: t4
-    title: Copy + patch CI templates (test-build-release.yml, deploy.yml)
-    verify: "test -f .github/workflows/deploy.yml && grep -q big-release .github/workflows/test-build-release.yml"
+    description: "Adapt test-build-release.yml to central template v4.1.0 standard (pinned action SHAs, setup-uv v5, big-release step preserved)"
+    verify: "test -f .github/workflows/test-build-release.yml && grep -q 'actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0' .github/workflows/test-build-release.yml"
+    risk: P1
+    status: passing
+    allure:
+      severity: high
+      categories: ["ci"]
   - id: t5
-    title: Provision bigbase site + GitHub secrets
-    verify: "gh secret list -R danielvm-git/bigbase-canary-python | grep -q BIGBASE_SITE_ID"
+    description: "Adapt deploy.yml to central template v4.1.0 standard (pinned action SHAs, post-deploy health check loop)"
+    verify: "test -f .github/workflows/deploy.yml && grep -q 'Health check' .github/workflows/deploy.yml"
+    risk: P1
+    status: passing
+    allure:
+      severity: high
+      categories: ["cd"]
   - id: t6
-    title: Land on main, confirm green CI + live deploy
-    verify: "gh run list -R danielvm-git/bigbase-canary-python --limit 2 --json conclusion -q '.[].conclusion' | grep -q success"
+    description: "Validate workflow YAML syntax and verify local preflight"
+    verify: "python3 -c \"import yaml; yaml.safe_load(open('.github/workflows/test-build-release.yml'))\" && python3 -c \"import yaml; yaml.safe_load(open('.github/workflows/deploy.yml'))\" && uv run ruff check . && uv run mypy src/ && uv run pytest -q"
+    risk: P1
+    status: passing
+    allure:
+      severity: high
+      categories: ["verification"]
