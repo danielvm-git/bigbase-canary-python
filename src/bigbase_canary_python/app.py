@@ -4,14 +4,17 @@ from pathlib import Path
 
 from flask import Flask
 
+_ROOT = Path(__file__).resolve().parents[2]
+_HTML_TEMPLATE = (_ROOT / "index.html").read_text()
+
 
 def create_app() -> Flask:
     app = Flask(__name__)
 
     @app.route("/")
     def home() -> str:
-        version = (Path(__file__).resolve().parents[2] / "VERSION").read_text().strip()
-        return f"<h1>bigbase canary (Python)</h1><footer>v{version}</footer>"
+        version = (_ROOT / "VERSION").read_text().strip()
+        return _HTML_TEMPLATE.replace("{{VERSION}}", version)
 
     return app
 

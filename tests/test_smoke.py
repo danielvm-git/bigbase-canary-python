@@ -10,3 +10,9 @@ def test_footer_contains_version():
     resp = client.get("/")
     version = Path("VERSION").read_text().strip()
     assert version.encode() in resp.data
+
+
+def test_no_raw_placeholder():
+    client = create_app().test_client()
+    resp = client.get("/")
+    assert b"{{VERSION}}" not in resp.data
